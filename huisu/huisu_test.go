@@ -36,3 +36,9 @@ func TestFact(t *testing.T) {
 	t.Log(CombineSum(tree,22))
 }
 
+func TestCountGoodTriplets(t *testing.T) {
+	arr := []int{3,0,1,1,9,7}
+	count := CountGoodTriplets(arr,7,2,3)
+	t.Log(count)
+}
+
