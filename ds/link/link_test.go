@@ -6,24 +6,24 @@ import (
 
 func TestDeleteNode(t *testing.T) {
 	first := &ListNode{
-		Val: 4,
-	}
-	n5 := &ListNode{
-		Val: 5,
-	}
-	n1 := &ListNode{
 		Val: 1,
 	}
+	n5 := &ListNode{
+		Val: 2,
+	}
+	n1 := &ListNode{
+		Val: 3,
+	}
 	n9 := &ListNode{
-		Val: 9,
+		Val: 3,
 	}
 	first.Next = n5
 	n5.Next = n1
 	n1.Next = n9
-	DeleteNode(n5)
-	for first != nil {
-		t.Log(first.Val)
-		first = first.Next
+	n := deleteDuplicatesV2(first)
+	for n != nil {
+		t.Log(n.Val)
+		n = n.Next
 	}
 }
 
