@@ -157,3 +157,70 @@ func deleteDuplicatesV2(head *ListNode) *ListNode {
 	}
 	return h.Next
 }
+
+func hasCycle(head *ListNode) bool {
+	if head == nil {
+		return false
+	}
+	slow,fast := head,head
+	for fast != nil {
+		if fast.Next !=nil {
+			slow = slow.Next
+			fast = fast.Next.Next
+		} else {
+			return false
+		}
+		if slow == fast {
+			return true
+		}
+	}
+	return false
+}
+
+func middleNode(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	slow,fast := head,head
+	for fast != nil {
+		if fast.Next !=nil {
+			slow = slow.Next
+			fast = fast.Next.Next
+			fmt.Printf("pause\n")
+		} else {
+			break
+		}
+	}
+	return slow
+}
+// 二进制链表转十进制数
+func getDecimalValue(head *ListNode) int {
+	cur := head
+	var num = 0
+	for cur != nil {
+		num = num << 1 | cur.Val
+		cur = cur.Next
+	}
+	return num
+}
+
+func removeElements(head *ListNode, val int) *ListNode {
+	if head == nil {
+		return head
+	}
+	dummy := &ListNode{
+		Next: head,
+	}
+	h := dummy
+	cur := head
+	for cur != nil {
+		if cur.Val == val {
+			dummy.Next = cur.Next
+			cur = cur.Next
+		} else {
+			cur = cur.Next
+			dummy = dummy.Next
+		}
+	}
+	return h.Next
+}
