@@ -151,3 +151,28 @@ func TestRemoveElements(t *testing.T) {
 		n = n.Next
 	}
 }
+
+func TestDeleteNode2(t *testing.T) {
+	first := &ListNode{
+		Val: 1,
+	}
+	n2 := &ListNode{
+		Val: 3,
+	}
+	n3 := &ListNode{
+		Val: 4,
+	}
+	n4 := &ListNode{
+		Val: 5,
+	}
+	n5 := &ListNode{
+		Val: 2,
+	}
+	first.Next = n2
+	n2.Next = n3
+	n3.Next = n4
+	n4.Next = n5
+	//n5.Next = n3
+	node := detectCycle(first)
+	fmt.Printf("n3: %p    return: %p",n3,node)
+}

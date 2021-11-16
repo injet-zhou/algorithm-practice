@@ -224,3 +224,31 @@ func removeElements(head *ListNode, val int) *ListNode {
 	}
 	return h.Next
 }
+
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+	slow,fast := head,head
+	loop:
+	for fast != nil {
+		if fast.Next !=nil {
+			slow = slow.Next
+			fast = fast.Next.Next
+		} else {
+			return nil
+		}
+		if slow == fast {
+			break loop
+		}
+	}
+	if fast == nil || fast.Next == nil {
+		return nil
+	}
+	slow = head
+	for slow != fast {
+		slow = slow.Next
+		fast = fast.Next
+	}
+	return slow
+}
