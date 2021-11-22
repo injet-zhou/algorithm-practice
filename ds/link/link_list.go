@@ -252,3 +252,26 @@ func detectCycle(head *ListNode) *ListNode {
 	}
 	return slow
 }
+// 未完成
+func mergeInBetween(list1 *ListNode, a int, b int, list2 *ListNode) *ListNode {
+	dummy := &ListNode{Next: list1}
+	slow,fast := dummy,dummy
+	for i := -1; i < b+2; i++ {
+		if i < a -1 {
+			if slow.Next != nil {
+				slow = slow.Next
+			}
+		}
+		if fast!= nil {
+			fast = fast.Next
+		}
+	}
+	p := list2
+	slow.Next = p
+	for p.Next != nil {
+		p = p.Next
+	}
+	p.Next = fast
+	return dummy.Next
+}
+
