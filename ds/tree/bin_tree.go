@@ -1,6 +1,8 @@
 package tree
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type TreeNode struct {
 	Val int
@@ -178,4 +180,73 @@ func preTraverse(root *TreeNode,nodes *[]int) {
 	*nodes = append(*nodes,root.Val)
 	preTraverse(root.Left,nodes)
 	preTraverse(root.Right,nodes)
+}
+func sumOfLeftLeaves(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left == nil && root.Right == nil {
+		return root.Val
+	}
+	return sumLeft(root)
+}
+
+func sumLeft(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left != nil {
+		if root.Left.Left == nil && root.Left.Right == nil {
+			return root.Left.Val + sumLeft(root.Right)
+		}
+	}
+	left := sumLeft(root.Left)
+	right := sumLeft(root.Right)
+	return left + right
+}
+
+func pathSum(root *TreeNode, targetSum int) [][]int {
+	if root == nil {
+		return [][]int{}
+	}
+	route := [][]int{}
+	path := []int{}
+	sums := 0
+	getPathSum(root,path,targetSum,&route,sums)
+	return route
+}
+
+func isLeaveNode(root *TreeNode) bool {
+	if root == nil {
+		return false
+	}
+	if root.Left == nil && root.Right == nil {
+		return true
+	}
+	return false
+}
+
+func getPathSum(root *TreeNode, path []int, target int,route *[][]int,sums int) {
+	if root == nil {
+		return
+	}
+	path = append(path,root.Val)
+	sums += root.Val
+	if isLeaveNode(root) {
+		fmt.Println("path: ",path)
+		fmt.Println("sum: ",sums," target: ",target)
+		if sums == target {
+			*route = append(*route,copySlice(path))
+		}
+	}
+	getPathSum(root.Left,path,target,route,sums)
+	getPathSum(root.Right,path,target,route,sums)
+	path = path[0:len(path)-1]
+	sums -= root.Val
+}
+
+func copySlice(path []int) (sum []int) {
+	sum = make([]int,0,len(path))
+	sum = append(sum,path...)
+	return sum
 }

@@ -1,6 +1,8 @@
 package tree
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestRevertTree(t *testing.T) {
 	root := &TreeNode{
@@ -44,4 +46,38 @@ func TestHasPathSum(t *testing.T) {
 		},
 	}
 	t.Log(preorderTraversal(root))
+}
+
+func TestGetPath(t *testing.T) {
+	root := &TreeNode{
+		Val: 5,
+		Left: &TreeNode{
+			Val: 4,
+			Left: &TreeNode{
+				Val: 11,
+				Left: &TreeNode{
+					Val: 7,
+				},
+				Right: &TreeNode{
+					Val: 2,
+				},
+			},
+		},
+		Right: &TreeNode{
+			Val: 8,
+			Left: &TreeNode{
+				Val: 13,
+			},
+			Right: &TreeNode{
+				Val: 4,
+				Left: &TreeNode{
+					Val: 5,
+				},
+				Right: &TreeNode{
+					Val: 1,
+				},
+			},
+		},
+	}
+	t.Log(pathSum(root,22))
 }
