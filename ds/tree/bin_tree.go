@@ -107,3 +107,75 @@ func flattenTree(root *TreeNode) {
 	}
 	p.Right = right
 }
+
+func isSameTree(p *TreeNode, q *TreeNode) bool {
+	if q == nil && p == nil {
+		return true
+	}
+	return traverseTwoTree(p,q) // 同步递归遍历
+}
+
+func traverseTwoTree(p, q *TreeNode) bool {
+	if q == nil && p == nil {
+		return true
+	}
+	if (q == nil && p != nil ) || (q != nil && p == nil) {
+		return false
+	}
+	if q.Val != p.Val {
+		return false
+	}
+	return traverseTwoTree(p.Left,q.Left) && traverseTwoTree(p.Right,q.Right)
+}
+
+func hasPathSum(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+	return traverseBinTree(root,0,targetSum)
+}
+
+func traverseBinTree(root *TreeNode, sum int, target int) bool {
+	sum += root.Val
+	if root.Left == nil && root.Right == nil {
+		if target == sum {
+			return true
+		}
+	}
+	left := false
+	right := false
+	if root.Left != nil {
+		left =  traverseBinTree(root.Left,sum,target)
+	}
+	if root.Right != nil {
+		right = traverseBinTree(root.Right,sum,target)
+	}
+	return left || right
+}
+
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	left := maxDepth(root.Left)+1
+	right := maxDepth(root.Right)+1
+	if left >= right {
+		return left
+	} else {
+		return right
+	}
+}
+
+func preorderTraversal(root *TreeNode) []int {
+	nums := &[]int{}
+	preTraverse(root,nums)
+	return *nums
+}
+func preTraverse(root *TreeNode,nodes *[]int) {
+	if root == nil {
+		return
+	}
+	*nodes = append(*nodes,root.Val)
+	preTraverse(root.Left,nodes)
+	preTraverse(root.Right,nodes)
+}

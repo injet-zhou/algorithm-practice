@@ -275,3 +275,19 @@ func mergeInBetween(list1 *ListNode, a int, b int, list2 *ListNode) *ListNode {
 	return dummy.Next
 }
 
+func reverseList(head *ListNode) *ListNode {
+	if head == nil {
+		return head
+	}
+	return reverseLinkList(head)
+}
+
+func reverseLinkList(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	last := reverseLinkList(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return last
+}
