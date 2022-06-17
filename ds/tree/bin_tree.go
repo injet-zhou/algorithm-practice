@@ -5,16 +5,16 @@ import (
 )
 
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int
+	Left  *TreeNode
 	Right *TreeNode
 }
 
 type Node struct {
-	Val int
-	Left *Node
+	Val   int
+	Left  *Node
 	Right *Node
-	Next *Node
+	Next  *Node
 }
 
 func invertTree(root *TreeNode) *TreeNode {
@@ -49,7 +49,7 @@ func connect(root *Node) *Node {
 	if root == nil {
 		return nil
 	}
-	connectTwoNode(root.Left,root.Right)
+	connectTwoNode(root.Left, root.Right)
 	return root
 }
 
@@ -58,9 +58,9 @@ func connectTwoNode(node1, node2 *Node) {
 		return
 	}
 	node1.Next = node2
-	connectTwoNode(node1.Left,node1.Right)
-	connectTwoNode(node2.Left,node2.Right)
-	connectTwoNode(node1.Right,node2.Left)
+	connectTwoNode(node1.Left, node1.Right)
+	connectTwoNode(node2.Left, node2.Right)
+	connectTwoNode(node1.Right, node2.Left)
 }
 
 func inorderTraversal(root *TreeNode) []int {
@@ -68,28 +68,29 @@ func inorderTraversal(root *TreeNode) []int {
 	if root == nil {
 		return nums
 	}
-	inorderTraversalNode(root,&nums)
+	inorderTraversalNode(root, &nums)
 	return nums
 }
 func inorderTraversalNode(root *TreeNode, nums *[]int) {
 	if root == nil {
 		return
 	}
-	inorderTraversalNode(root.Left,nums)
-	*nums = append(*nums,root.Val)
-	inorderTraversalNode(root.Right,nums)
+	inorderTraversalNode(root.Left, nums)
+	*nums = append(*nums, root.Val)
+	inorderTraversalNode(root.Right, nums)
 }
 
 func preorderTraverse(root *TreeNode) {
 	if root == nil {
 		return
 	}
-	fmt.Print(root.Val," ")
+	fmt.Print(root.Val, " ")
 	preorderTraverse(root.Left)
 	preorderTraverse(root.Right)
 }
+
 // 二叉树展开为链表
-func flatten(root *TreeNode)  {
+func flatten(root *TreeNode) {
 	flattenTree(root)
 }
 
@@ -114,27 +115,27 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 	if q == nil && p == nil {
 		return true
 	}
-	return traverseTwoTree(p,q) // 同步递归遍历
+	return traverseTwoTree(p, q) // 同步递归遍历
 }
 
 func traverseTwoTree(p, q *TreeNode) bool {
 	if q == nil && p == nil {
 		return true
 	}
-	if (q == nil && p != nil ) || (q != nil && p == nil) {
+	if (q == nil && p != nil) || (q != nil && p == nil) {
 		return false
 	}
 	if q.Val != p.Val {
 		return false
 	}
-	return traverseTwoTree(p.Left,q.Left) && traverseTwoTree(p.Right,q.Right)
+	return traverseTwoTree(p.Left, q.Left) && traverseTwoTree(p.Right, q.Right)
 }
 
 func hasPathSum(root *TreeNode, targetSum int) bool {
 	if root == nil {
 		return false
 	}
-	return traverseBinTree(root,0,targetSum)
+	return traverseBinTree(root, 0, targetSum)
 }
 
 func traverseBinTree(root *TreeNode, sum int, target int) bool {
@@ -147,10 +148,10 @@ func traverseBinTree(root *TreeNode, sum int, target int) bool {
 	left := false
 	right := false
 	if root.Left != nil {
-		left =  traverseBinTree(root.Left,sum,target)
+		left = traverseBinTree(root.Left, sum, target)
 	}
 	if root.Right != nil {
-		right = traverseBinTree(root.Right,sum,target)
+		right = traverseBinTree(root.Right, sum, target)
 	}
 	return left || right
 }
@@ -159,8 +160,8 @@ func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	left := maxDepth(root.Left)+1
-	right := maxDepth(root.Right)+1
+	left := maxDepth(root.Left) + 1
+	right := maxDepth(root.Right) + 1
 	if left >= right {
 		return left
 	} else {
@@ -170,16 +171,16 @@ func maxDepth(root *TreeNode) int {
 
 func preorderTraversal(root *TreeNode) []int {
 	nums := &[]int{}
-	preTraverse(root,nums)
+	preTraverse(root, nums)
 	return *nums
 }
-func preTraverse(root *TreeNode,nodes *[]int) {
+func preTraverse(root *TreeNode, nodes *[]int) {
 	if root == nil {
 		return
 	}
-	*nodes = append(*nodes,root.Val)
-	preTraverse(root.Left,nodes)
-	preTraverse(root.Right,nodes)
+	*nodes = append(*nodes, root.Val)
+	preTraverse(root.Left, nodes)
+	preTraverse(root.Right, nodes)
 }
 func sumOfLeftLeaves(root *TreeNode) int {
 	if root == nil {
@@ -212,7 +213,7 @@ func pathSum(root *TreeNode, targetSum int) [][]int {
 	route := [][]int{}
 	path := []int{}
 	sums := 0
-	getPathSum(root,path,targetSum,&route,sums)
+	getPathSum(root, path, targetSum, &route, sums)
 	return route
 }
 
@@ -226,27 +227,44 @@ func isLeaveNode(root *TreeNode) bool {
 	return false
 }
 
-func getPathSum(root *TreeNode, path []int, target int,route *[][]int,sums int) {
+func getPathSum(root *TreeNode, path []int, target int, route *[][]int, sums int) {
 	if root == nil {
 		return
 	}
-	path = append(path,root.Val)
+	path = append(path, root.Val)
 	sums += root.Val
 	if isLeaveNode(root) {
-		fmt.Println("path: ",path)
-		fmt.Println("sum: ",sums," target: ",target)
+		fmt.Println("path: ", path)
+		fmt.Println("sum: ", sums, " target: ", target)
 		if sums == target {
-			*route = append(*route,copySlice(path))
+			*route = append(*route, copySlice(path))
 		}
 	}
-	getPathSum(root.Left,path,target,route,sums)
-	getPathSum(root.Right,path,target,route,sums)
-	path = path[0:len(path)-1]
+	getPathSum(root.Left, path, target, route, sums)
+	getPathSum(root.Right, path, target, route, sums)
+	path = path[0 : len(path)-1]
 	sums -= root.Val
 }
 
 func copySlice(path []int) (sum []int) {
-	sum = make([]int,0,len(path))
-	sum = append(sum,path...)
+	sum = make([]int, 0, len(path))
+	sum = append(sum, path...)
 	return sum
+}
+
+var pre int
+
+func isUnivalTree(root *TreeNode) bool {
+	pre = root.Val
+	return travel(root)
+}
+
+func travel(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+	if pre != root.Val {
+		return false
+	}
+	return travel(root.Left) && travel(root.Right)
 }

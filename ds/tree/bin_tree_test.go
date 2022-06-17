@@ -23,7 +23,7 @@ func TestRevertTree(t *testing.T) {
 			Val: 2,
 		},
 	}
-	t.Log(isSameTree(root,q))
+	t.Log(isSameTree(root, q))
 }
 
 func TestHasPathSum(t *testing.T) {
@@ -79,5 +79,24 @@ func TestGetPath(t *testing.T) {
 			},
 		},
 	}
-	t.Log(pathSum(root,22))
+	t.Log(pathSum(root, 22))
+}
+
+func TestIsUnivalTree(t *testing.T) {
+	root := &TreeNode{
+		Val: 1,
+		//Right: &TreeNode{
+		//	Val: 1,
+		//},
+		//Left: &TreeNode{
+		//	Val: 1,
+		//	Left: &TreeNode{
+		//		Val: 5,
+		//	},
+		//	Right: &TreeNode{
+		//		Val: 1,
+		//	},
+		//},
+	}
+	t.Log(isUnivalTree(root))
 }
