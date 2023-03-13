@@ -43,7 +43,7 @@ func TestMergeTwoList(t *testing.T) {
 			},
 		},
 	}
-	l2:= &ListNode{
+	l2 := &ListNode{
 		Val: 1,
 		Next: &ListNode{
 			Val: 3,
@@ -52,7 +52,7 @@ func TestMergeTwoList(t *testing.T) {
 			},
 		},
 	}
-	l3 := MergeTwoList(l1,l2)
+	l3 := MergeTwoList(l1, l2)
 	for l3 != nil {
 		t.Log(l3.Val)
 		l3 = l3.Next
@@ -145,7 +145,7 @@ func TestRemoveElements(t *testing.T) {
 	n2.Next = n3
 	n3.Next = n4
 	n4.Next = n5
-	n := removeElements(first,2)
+	n := removeElements(first, 2)
 	for n != nil {
 		t.Log(n.Val)
 		n = n.Next
@@ -174,7 +174,7 @@ func TestDeleteNode2(t *testing.T) {
 	n4.Next = n5
 	//n5.Next = n3
 	node := detectCycle(first)
-	fmt.Printf("n3: %p    return: %p",n3,node)
+	fmt.Printf("n3: %p    return: %p", n3, node)
 }
 
 func TestDeleteInBetween(t *testing.T) {
@@ -205,3 +205,14 @@ func TestDeleteInBetween(t *testing.T) {
 	}
 }
 
+func TestAddTwoNumbers(t *testing.T) {
+	n1 := []int{2, 4, 3}
+	n2 := []int{5, 6, 4}
+	l1 := Slice2ListNodes(n1)
+	l2 := Slice2ListNodes(n2)
+	l3 := addTwoNumbers(l1, l2)
+	for l3 != nil {
+		t.Log(l3.Val)
+		l3 = l3.Next
+	}
+}
